@@ -1,0 +1,102 @@
+<!doctype html>
+<html style = "text-align: center">
+<head>
+<meta charset="utf-8">
+<title>Calculator</title>
+<h1>Change Calculationizerinator 4000 :3</h1>
+<script>
+
+	//declair variables
+	var dollars 	 = 0
+	var cents 		 = 0
+	var money 		 = 0
+	var quarters  	 = 0
+	var dimes		 = 0
+	var nickels		 = 0
+	var pennys 		 = 0
+	var loonies		 = 0
+	var toonies		 = 0
+	
+function go(){ // start of go
+	// this function runs when the go button is clicked
+	
+	
+
+	//set dollars/cents based on input
+	dollars = document.getElementById("$").value	
+	cents = document.getElementById("¢").value	
+	
+	//converts dollars to cents
+	money 		= (+dollars*100) + +cents
+	
+	//calculates toonies
+	toonies 	= ~~(money/200)
+	money 		=   (money%100)
+		
+	//calculates loonies
+	loonies 	= ~~(money/100)
+	money 		=   (money%100)
+	
+	//calculates quarters
+	quarters 	= ~~(money/25)
+	money		=	(money%25)
+	
+	//calculates dimes
+	dimes		= ~~(money/10)
+	money		=	(money%10)
+	
+	//calculates nickels
+	nickels		= ~~(money/5)
+	money		=	(money%5)
+	
+	//calculates pennys
+	pennys		=	money
+	
+	
+	//sets id's for displat
+	document.getElementById("toonies").innerHTML 	= toonies
+	document.getElementById("loonies").innerHTML 	= loonies
+	document.getElementById("quarters").innerHTML 	= quarters  
+	document.getElementById("dimes").innerHTML	 	= dimes		
+	document.getElementById("nickels").innerHTML 	= nickels 	
+	document.getElementById("pennys").innerHTML	 	= pennys	
+
+	//alert("Owie that hurt") // test messages
+
+} // end of go
+</script>
+</head>
+<body>
+<p>
+  <label for="txtX"></label>
+  <input style="height:35px;width1px; text-align:center"  type="text" name="$" id="$" placeholder="Input $ Here" />
+  <label for="txtY"></label>
+  <input style="height:35px;width1px; text-align:center"  type="text" name="¢" id="¢" placeholder="Input ¢ Here" >
+  <br>
+</p>
+<p>
+  <button style="height:70px;width40px" onClick="go()" ><font size = "7"> ( ͡° ل͜ ͡°) </font></button>
+</p>
+	
+<font size ="7"> Your Change </font> <br> <br>
+<font size ="5">toonies </font><br>
+<div id="toonies"></div>
+<br>
+<font size ="5">loonies </font><br>
+<div id="loonies"></div>
+<br>
+<font size ="5">quarters </font><br>
+<div id="quarters"></div>
+<br>
+<font size ="5">dimes </font><br>
+<div id="dimes"></div>
+<br>
+<font size ="5">nickels </font><br>
+<div id="nickels"></div>
+<br>
+<font size ="5">pennys </font><br>
+<div id="pennys"></div>
+<br>
+<p>&nbsp; </p>
+</body>
+</html>
