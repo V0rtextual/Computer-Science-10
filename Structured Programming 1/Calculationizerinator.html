@@ -31,7 +31,7 @@ function go(){ // start of go
 	
 	//calculates toonies
 	toonies 	= ~~(money/200)
-	money 		=   (money%100)
+	money 		=   (money%200)
 		
 	//calculates loonies
 	loonies 	= ~~(money/100)
@@ -53,7 +53,7 @@ function go(){ // start of go
 	pennys		=	money
 	
 	
-	//sets id's for displat
+	//sets id's for display
 	document.getElementById("toonies").innerHTML 	= toonies
 	document.getElementById("loonies").innerHTML 	= loonies
 	document.getElementById("quarters").innerHTML 	= quarters  
@@ -61,24 +61,25 @@ function go(){ // start of go
 	document.getElementById("nickels").innerHTML 	= nickels 	
 	document.getElementById("pennys").innerHTML	 	= pennys	
 
-	//alert("Owie that hurt") // test messages
-
 } // end of go
 </script>
 </head>
 <body>
-<p>
+<p> 
+  <!--Input boxes-->
   <label for="txtX"></label>
   <input style="height:35px;width1px; text-align:center"  type="text" name="$" id="$" placeholder="Input $ Here" />
   <label for="txtY"></label>
   <input style="height:35px;width1px; text-align:center"  type="text" name="¢" id="¢" placeholder="Input ¢ Here" >
   <br>
 </p>
-<p>
+<p> 
+  <!--Button-->
   <button style="height:70px;width40px" onClick="go()" ><font size = "7"> ( ͡° ل͜ ͡°) </font></button>
 </p>
-	
-<font size ="7"> Your Change </font> <br> <br>
+<!--Output--> 
+<font size ="7"> Your Change </font> <br>
+<br>
 <font size ="5">toonies </font><br>
 <div id="toonies"></div>
 <br>
@@ -97,6 +98,5 @@ function go(){ // start of go
 <font size ="5">pennys </font><br>
 <div id="pennys"></div>
 <br>
-<p>&nbsp; </p>
 </body>
 </html>
