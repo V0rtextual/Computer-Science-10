@@ -1,0 +1,61 @@
+ <!doctype html>
+<html> 
+<head>
+<meta charset="utf-8">
+<title>Gerald</title>
+<link rel="icon" href="images/favicon.png"  type="image/png">
+<script>
+	
+	//Global variables
+	var fps = 60
+	//
+	var keysDown = {};
+	var id
+	var canvas
+	var ctx
+	// images
+	var topImg = new Image()
+	topImg.src = "images/top.png"
+	function loaded(){
+		canvas = document.getElementById("frogger")
+		ctx = canvas.getContext("2d")
+		// set proper dimensions for canvas!!
+		canvas.width = 800
+		canvas.height = 800
+		id = setInterval(update,1000/fps)
+		
+		window.addEventListener('keydown', function(e) {
+			keysDown[e.keyCode] = true;
+		});
+		window.addEventListener('keyup', function(e) {
+			delete keysDown[e.keyCode];
+		});
+	}// end of loaded
+	
+	function update(){
+ 
+		
+		
+		//draw everything
+		render()
+	}// end of update
+	
+	function render(){
+		
+	
+		
+		
+		
+		
+		//draw top safety zone
+		ctx.drawImage(topImg,0,0)
+	}// end of render
+	
+
+</script>
+</head>
+
+<body>
+	<canvas id="frogger" width="800" height="800"></canvas>
+</body>
+</html>

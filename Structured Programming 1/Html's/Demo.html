@@ -1,0 +1,81 @@
+<html>
+<head>
+
+<title>Drawing</title>
+<script>
+	
+	var id
+	
+	//shape variables
+		//purple circle
+        var PcircleX = 700
+        var PcircleY = 300
+        var Pradius  = 100
+		
+		//red rectangle
+		
+	
+	function loaded(){
+		//code goes here
+		var canvas=document.getElementById("myCanvas")
+		var ctx=canvas.getContext("2d")
+        
+		
+		id = setInterval(update,1000/30)
+		
+	function getCursor(event) {
+    let x = event.clientX;
+    let y = event.clientY;
+    let _position = `X: ${x}<br>Y: ${y}`;
+
+    const infoElement = document.getElementById('info');
+    infoElement.innerHTML = _position;
+    infoElement.style.top = y + "px";
+    infoElement.style.left = (x + 20) + "px";
+}
+      
+		
+	//Shapes
+		
+	
+        //red rectangle
+		ctx.beginPath();
+        ctx.rect(200,20,250,250); // parameters are x,y,width,height
+        ctx.fillStyle="red";
+        ctx.fill();
+		ctx.closePath();
+		
+		
+		//purple rectangle
+		ctx.beginPath();
+		ctx.rect(1000,500,150,100); // parameters are x,y,width,height
+        ctx.fillStyle="purple";
+        ctx.fill();
+		ctx.closePath();
+		
+		
+		//purple circle
+		ctx.beginPath();
+		ctx.arc(blueX,blueY,10,0,2*Math.PI); // parameters are x,y,radius,starting angle in radians, ending angle in radians, 
+		ctx.closePath();
+		ctx.fillStyle="#7b39ed";
+        ctx.fill();
+		
+		PcircleX = event.clientX
+		PcircleY = event.clientY
+		
+
+	}//end of loaded
+	
+	function update(){
+		
+	
+	}//end of update
+</script>
+</head>
+
+
+<body onLoad="loaded()">
+<canvas id="myCanvas" width="10000" height="10000"></canvas>
+</body>
+</html>

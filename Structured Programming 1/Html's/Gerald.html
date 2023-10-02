@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<style>
+#myCanvas {
+    border: 1px solid #000000
+}
+	/* text thingys */
+</style>
+<head>
+<script>
+	
+	// global variables
+	var speed = 10
+	var fps = 60
+	// drawing
+	var canvas
+	var ctx
+	var id
+	//Gerald
+	var geraldX
+	var geraldY
+	//keybaord
+	var keysDown = {};
+	
+	
+	function loaded(){
+		//code goes here
+		canvas=document.getElementById("myCanvas")
+		ctx=canvas.getContext("2d")
+		
+		// change canvas size
+		canvas.width = 1860
+		canvas.height = 600
+		canvas.addEventListener("mousemove", followMouse,false)
+		canvas.addEventListener("mousedown", getPosition, false);
+		window.addEventListener('keydown', function(e) {
+			keysDown[e.keyCode] = true;
+		});
+		window.addEventListener('keyup', function(e) {
+			delete keysDown[e.keyCode];
+		});
+		
+		//fps
+		id = setInterval(update,1000/fps)		
+	
+		
+	
+	}//end of loaded
+	
+	function update(){
+		/*
+			update runs 30 times per second
+			it makes render run next
+			this is where variables change for movement not triggered by user
+		*/
+ 		
+
+		
+	
+		//makes purple square bounce
+		if(purpleY >= canvas.height-200){
+			dir = dir * (-1)
+		}
+		if(purpleY <= 0){
+			dir = dir * (-1)
+		}
+		if(purpleX >= canvas.width-200){
+			dir2 = dir2 * (-1)
+		}
+			if(purpleX <= 0){
+			dir2 = dir2 * (-1)
+		}
+		
+		
+	
+		//green square movement
+ 		if (37 in keysDown){
+			//left
+			greenX -= speed
+		}
+		if (38 in keysDown){
+			//up
+			greenY -=speed
+		}
+		if (39 in keysDown){
+			//right
+			greenX +=speed
+		}
+		if (40 in keysDown){
+			//down
+			greenY +=speed
+		}
+		//speed changes
+		if (187 in keysDown){
+			//speed up
+			speed +=5
+		}
+		if (189 in keysDown){
+			//speed down
+			speed -=5
+		}
+		if (speed < 0)
+			//dont let speed go negative
+			speed = 0
+		
+		//bring green square back in bounds
+		if (greenX  <= 0){
+			greenX = 0
+		}
+		if (greenY  <= 0){
+			greenY = 0
+		}
+		if (greenX + greenWidth >= canvas.width){
+			greenX = canvas.width - greenWidth
+		}
+		if (greenY + greenHeight >= canvas.height){
+			greenY = canvas.height - greenHeight
+		}
+		
+		//bring purple square back in bounds
+		if (purpleX  <= 0){
+			purpleX = 0
+		}	
+		if (purpleY  <= 0){
+			purpleY = 0
+		}
+		if (purpleX + purpleWidth >= canvas.width){
+			purpleX = canvas.width - purpleWidth
+		}
+		if (purpleY + purpleHeight >= canvas.height){
+			purpleY = canvas.height - purpleHeight
+		}
+		
+		
+		render()
+		// empty keysDown
+		keysDown = {}
+	}// end of update
+	
+	/*increase size of blue circle when clicking
+		increase click counter */
+	document.onclick=function(Bigger){
+		blueR += speed
+		clicks += 1
+	}
+	
+	/*decrease size of blue circle when clicking
+		increase click counter */
+	document.oncontextmenu=function(Smaller){
+
+		blueR -= speed
+		clicks += 1
+	}
+	
+	
+		
+	function render(){
+		/*
+			this function is triggered by update
+			this function draws on the screen
+		*/
+		// draw background
+		ctx.beginPath()
+		ctx.rect(0,0,canvas.width,canvas.height); // parameters are x,y,width,height
+		ctx.closePath()
+		ctx.fillStyle="white";
+		ctx.fill();
+		
+		//purple box
+		ctx.beginPath();
+		ctx.rect(purpleX,purpleY,purpleWidth,purpleHeight); // parameters are x,y,width,height
+        ctx.fillStyle="purple";
+        ctx.fill();
+		ctx.closePath();
+		
+		//green box
+		ctx.beginPath();
+		ctx.rect(greenX,greenY,greenWidth,greenHeight); // parameters are x,y,width,height
+        ctx.fillStyle="green";
+        ctx.fill();
+		ctx.closePath();
+		
+		//blue circle
+		ctx.beginPath();
+		ctx.arc(blueX,blueY,blueR,0,2*Math.PI); // parameters are x,y,radius,starting angle in radians, ending angle in radians, 
+		ctx.closePath();
+		ctx.fillStyle="blue";
+        ctx.fill();
+		
+	}// end of render
+	
+	function getPosition(event){
+		/*
+			changes the x & y positon for the box to be where you click
+			INPUTS
+				event - click event object
+			OUTPUTS
+				none
+		*/
+			// assumes canvas is a global variable
+		var clickx = event.x;
+		var clicky = event.y;
+		// adjust x and y to be relative to the canvas	
+		clickx-= canvas.offsetLeft;
+		clicky-= canvas.offsetTop;
+		// adjust for any scrolling
+		clickx+=window.pageXOffset
+		clicky+= window.pageYOffset;
+		
+		
+	}// end of GetPosition
+    
+      
+    function followMouse(e){
+        pmouseX = mouseX
+        pmouseY = mouseY
+        mouseX  = event.x;
+        mouseY  = event.y;
+
+        //var canvas = document.getElementById("canvas");
+
+        mouseX -= canvas.offsetLeft;
+        mouseY -= canvas.offsetTop;
+    }//end of followmouse
+</script>
+</head>
+
+<body onLoad="loaded()" oncontextmenu="return false;">
+<canvas id="myCanvas" width="1920" height="1080"></canvas>
+</body>
+</html>
