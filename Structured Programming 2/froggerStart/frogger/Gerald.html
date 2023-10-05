@@ -1,234 +1,270 @@
- <!doctype html>
-<html> 
-	<style> 
+<!doctype html>
+<html>
+<style>
 	#frogger {
-    padding: 0;
-    margin: auto;
-    display: block;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-	border: 1px solid #000000
-		}
-	</style>
-	<div style="text-align:center">
-  <h1><font size = "7">Gerald</font></h1>
- </div>
+		padding: 0;
+		margin: auto;
+		display: block;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border: 1px solid #000000
+	}
+</style>
+<div style="text-align:center">
+	<h1>
+		<font size="7">Gerald</font>
+	</h1>
+</div>
+
 <head>
-<meta charset="utf-8">
-<title>Gerald</title>
-<link rel="icon" href="images/favicon.png"  type="image/png">
-<script>
-	
-	//Global variables
-	var fps = 60
-	//
-	var keysDown = {};
-	var id
-	var canvas
-	var ctx
-	var canvasHeight = 375
-	var canvasWidth = 399
-		
-	//objects
-	var truckX = 400
-	var pinkX = 425
-	var yellowX = 0
-	var greenX = 475
-	var largeLogX = 0
-	var mediumLogX1 = 400
-	var mediumLogX2 = 400
-	var smallLogX = 400
-	var frogX = 192
-	var frogY = 343
-	var frogdir = "up"
-	// images
-	var topImg = new Image()
-	var frogUp = new Image()
-	var frogLeft = new Image()
-	var frogRight = new Image()
-	var frogDown = new Image()
-	var middle = new Image()
-	var truck = new Image()
-	var pinkCar = new Image()
-	var yellowCar = new Image()
-	var greenCar = new Image()
-	var smallLog = new Image()
-	var mediumLog = new Image()
-	var largeLog = new Image()
-	
-	topImg.src = "images/top.png"
-	frogUp.src = "images/frogUp1.png"
-	frogLeft.src = "images/frogLeft1.png"
-	frogRight.src = "images/frogRight1.png"
-	frogDown.src = "images/frogDown1.png"
-	middle.src = "images/middle.png"
-	truck.src = "images/truckLeft.png"
-	pinkCar.src = "images/pinkCarLeft.png"
-	yellowCar.src = "images/yellowCarLeft.png"
-	greenCar.src = "images/raceCarRight.png"
-	smallLog.src = "images/smallLog.png"
-	mediumLog.src = "images/mediumLog.png"
-	largeLog.src = "images/largeLog.png"
-	
-	truck.onload = loaded;
-	
-	
-	
-	function loaded(){
-		canvas = document.getElementById("frogger")
-		ctx = canvas.getContext("2d")
-		// set proper dimensions for canvas!!
-		canvas.width = canvasWidth
-		canvas.height = canvasHeight
-		id = setInterval(update,1000/fps)
-		
-		
-	}// end of loaded
-	function update(){
- 		
-		truckX -= 1.5
-		if (truckX<-50){
-			truckX = 400
-		}
-		pinkX -= 3
-		if (pinkX<-32){
-			pinkX = 400
-		}
-		yellowX -= 2
-		if (yellowX<-32){
-			yellowX = 400
-		}
-		greenX += 4
-		if (greenX>400){
-			greenX = -32
-		}
-		largeLogX += 1.5
-		if (largeLogX>399){
-			largeLogX = largeLog.width *-1
-		}
-		mediumLogX1 += 4
-		if (greenX>400){
-			greenX = mediumLogX1 
-		}
-		greenX += 4
-		if (greenX>400){
-			greenX = -32
-		}
-		greenX += 4
-		if (greenX>400){
-			greenX = -32
-		}
-		
-		
-		
-		if(frogX<0 || frogX > 385){
-			death()
-		}
-		
-		if(frogY > 343){
-			frogY = 343
-		}
-		//draw everything
-		render()
-	}// end of update
-	
-	
+	<meta charset="utf-8">
+	<title>Gerald</title>
+	<link rel="icon" href="images/favicon.png" type="image/png">
+	<script>
 
-	function render(){
-		
+		//Global variables
+		var fps = 60
+		//
+		var keysDown = {};
+		var id
+		var canvas
+		var ctx
+		var canvasHeight = 410
+		var canvasWidth = 399
 
-		
-		
-		
-	//background
-		ctx.beginPath()
-		ctx.rect(0,0,canvas.width,canvas.height); // parameters are x,y,width,height
-		ctx.closePath()
-		ctx.fillStyle="white";
-		ctx.fill();
-		
-		ctx.beginPath()
-		ctx.rect(0,0,399,185); // parameters are x,y,width,height
-		ctx.closePath()
-		ctx.fillStyle="blue";
-		ctx.fill();
-		
-		ctx.beginPath()
-		ctx.rect(0,215,399,130); // parameters are x,y,width,height
-		ctx.closePath()
-		ctx.fillStyle="black";
-		ctx.fill();
-		
-		
-		
-		ctx.drawImage(topImg,0,0)
-		ctx.drawImage(middle,0,183)
-		ctx.drawImage(middle,0,343)
-		ctx.drawImage(truck,truckX,215)
-		ctx.drawImage(pinkCar,pinkX,247)
-		ctx.drawImage(yellowCar,yellowX,311)
-		ctx.drawImage(greenCar,greenX,279)
-		ctx.drawImage(largeLog,largeLogX,87)
-		ctx.drawImage(mediumLog,mediumLogX1,55)
-		ctx.drawImage(mediumLog,mediumLogX2,151)
-		ctx.drawImage(smallLog,smallLogX,119)
-	
-		if(frogdir == "up"){
-			ctx.drawImage(frogUp, frogX, frogY)
-		}else if(frogdir == "left"){
-			ctx.drawImage(frogLeft, frogX, frogY)
-		}else if(frogdir == "right"){
-			ctx.drawImage(frogRight, frogX, frogY)
-		}else if(frogdir == "down"){
-			ctx.drawImage(frogDown, frogX, frogY)
+		//objects
+		var truckX = 400
+		var pinkX = 425
+		var yellowX = 0
+		var greenX = 475
+		var largeLogX = 400
+		var mediumLogX1 = 400
+		var mediumLogX2 = 400
+		var smallLogX = 400
+		var frogX = 192
+		var frogY = 343
+		var frogdir = "up"
+		//da stuff
+		var lives = 5
+		var onLog = false
+		// images
+		var topImg = new Image()
+		var frogUp = new Image()
+		var frogLeft = new Image()
+		var frogRight = new Image()
+		var frogDown = new Image()
+		var middle = new Image()
+		var truck = new Image()
+		var pinkCar = new Image()
+		var yellowCar = new Image()
+		var greenCar = new Image()
+		var smallLog = new Image()
+		var mediumLog = new Image()
+		var largeLog = new Image()
+
+		topImg.src = "images/top.png"
+		frogUp.src = "images/frogUp1.png"
+		frogLeft.src = "images/frogLeft1.png"
+		frogRight.src = "images/frogRight1.png"
+		frogDown.src = "images/frogDown1.png"
+		middle.src = "images/middle.png"
+		truck.src = "images/truckLeft.png"
+		pinkCar.src = "images/pinkCarLeft.png"
+		yellowCar.src = "images/yellowCarLeft.png"
+		greenCar.src = "images/raceCarRight.png"
+		smallLog.src = "images/smallLog.png"
+		mediumLog.src = "images/mediumLog.png"
+		largeLog.src = "images/largeLog.png"
+
+		truck.onload = loaded;
+
+
+
+		function loaded() {
+			canvas = document.getElementById("frogger")
+			ctx = canvas.getContext("2d")
+			// set proper dimensions for canvas!!
+			canvas.width = canvasWidth
+			canvas.height = canvasHeight
+			id = setInterval(update, 1000 / fps)
+
+
+		}// end of loaded
+		function update() {
+
+			truckX -= 1.5
+			if (truckX < -50) {
+				truckX = 400
+			}
+			pinkX -= 3
+			if (pinkX < -32) {
+				pinkX = 400
+			}
+			yellowX -= 2
+			if (yellowX < -32) {
+				yellowX = 400
+			}
+			greenX += 4
+			if (greenX > 400) {
+				greenX = -32
+			}
+			largeLogX -= 1.5
+			if (largeLogX < 0 - largeLog.width) {
+				largeLogX = canvasWidth
+			}
+			mediumLogX1 += 2
+			if (mediumLogX1 > 399) {
+				mediumLogX1 = mediumLog.width * -1
+			}
+			mediumLogX2 += 2.5
+			if (mediumLogX2 > 399) {
+				mediumLogX2 = mediumLog.width * -1
+			}
+			smallLogX += 3
+			if (smallLogX > 399) {
+				smallLogX = smallLog.width * -1
+			}
+
+
+			if (frogX < 0 || frogX > 385 || frogY < 0) {
+				death()
+			}
+
+
+			//log collision
+			if (frogY == 151 && (frogX > mediumLogX2 && frogX < mediumLogX2 + mediumLog.width || frogX + 32 > mediumLogX2 && frogX + 32 < mediumLogX2 + mediumLog.width)){
+				frogX += 2.5
+				
+			}else if (frogY < 153 && frogY > 53) {
+				death()
+			}
+
+			//car collision
+			if ((frogX > truckX && frogX < truckX + truck.width || frogX + 32 > truckX && frogX + 32 < truckX + truck.width) && frogY >= 215 && frogY <= 214 + truck.height) {
+				death()
+			} else if ((frogX > pinkX && frogX < pinkX + pinkCar.width || frogX + 32 > pinkX && frogX + 32 < pinkX + pinkCar.width) && frogY >= 247 && frogY < 247 + pinkCar.height) {
+				death()
+			} else if ((frogX > yellowX && frogX < yellowX + yellowCar.width || frogX + 32 > yellowX && frogX + 32 < yellowX + yellowCar.width) && frogY >= 311 && frogY < 311 + yellowCar.height) {
+				death()
+			} else if ((frogX > greenX && frogX < greenX + greenCar.width || frogX + 32 > greenX && frogX + 32 < greenX + greenCar.width) && frogY >= 279 && frogY < 279 + greenCar.height) {
+				death()
+			}
+
+
+			if (frogY > 343) {
+				frogY = 343
+			}
+
+
+			render()
+		}// end of update
+
+
+
+		function render() {
+
+
+
+
+
+			//background
+			ctx.beginPath()
+			ctx.rect(0, 0, canvas.width, canvas.height); // parameters are x,y,width,height
+			ctx.closePath()
+			ctx.fillStyle = "white";
+			ctx.fill();
+
+			ctx.beginPath()
+			ctx.rect(0, 0, 399, 185); // parameters are x,y,width,height
+			ctx.closePath()
+			ctx.fillStyle = "blue";
+			ctx.fill();
+
+			ctx.beginPath()
+			ctx.rect(0, 215, 399, 130); // parameters are x,y,width,height
+			ctx.closePath()
+			ctx.fillStyle = "black";
+			ctx.fill();
+
+			ctx.beginPath()
+			ctx.rect(0, 376, 399, 35); // parameters are x,y,width,height
+			ctx.closePath()
+			ctx.fillStyle = "gray";
+			ctx.fill();
+
+
+			ctx.drawImage(topImg, 0, 0)
+			ctx.drawImage(middle, 0, 183)
+			ctx.drawImage(middle, 0, 343)
+			ctx.drawImage(truck, truckX, 215)
+			ctx.drawImage(pinkCar, pinkX, 247)
+			ctx.drawImage(yellowCar, yellowX, 311)
+			ctx.drawImage(greenCar, greenX, 279)
+			ctx.drawImage(largeLog, largeLogX, 87)
+			ctx.drawImage(mediumLog, mediumLogX1, 55)
+			ctx.drawImage(mediumLog, mediumLogX2, 151)
+			ctx.drawImage(smallLog, smallLogX, 119)
+
+			if (frogdir == "up") {
+				ctx.drawImage(frogUp, frogX, frogY)
+			} else if (frogdir == "left") {
+				ctx.drawImage(frogLeft, frogX, frogY)
+			} else if (frogdir == "right") {
+				ctx.drawImage(frogRight, frogX, frogY)
+			} else if (frogdir == "down") {
+				ctx.drawImage(frogDown, frogX, frogY)
+			}
+
+		}// end of render
+
+		setTimeout(function () {
+
 		}
-		
-	}// end of render
-	
-	
 
-	
-	document.onkeydown = checkKey;
 
-	function checkKey(e) {
+			, document.onkeydown = checkKey)
+
+		function checkKey(e) {
 
 			e = e || window.event;
 
-			if (e.keyCode == '38'||e.keyCode == '87') {
+			if (e.keyCode == '38' || e.keyCode == '87') {
 				// up arrow
 				frogdir = "up"
 				frogY -= 32
 			}
-			else if (e.keyCode == '40'||e.keyCode =='83') {
+			else if (e.keyCode == '40' || e.keyCode == '83') {
 				// down arrow
 				frogdir = "down"
 				frogY += 32
 			}
-			else if (e.keyCode == '37'||e.keyCode =='65') {
+			else if (e.keyCode == '37' || e.keyCode == '65') {
 				// left arrow
 				frogdir = "left"
 				frogX -= 32
 			}
-			else if (e.keyCode == '39'||e.keyCode =='68') {
+			else if (e.keyCode == '39' || e.keyCode == '68') {
 				// right arrow
 				frogdir = "right"
 				frogX += 32
 			}
 		}
-	
-	function death(){
-		frogY = 343 
-		frogX = 192
-		
-		
-	}
-				
-</script>
+
+		function death() {
+			frogY = 343
+			frogX = 192
+			lives -= 1
+
+		}
+
+
+	</script>
 </head>
 
 <body>
 	<canvas id="frogger"></canvas>
 </body>
+
 </html>
